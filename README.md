@@ -16,4 +16,5 @@ This project is an Angular project. The datas are store in firebase service.
 
 # Developer 
 I created and developed all of the use case of this game in 2018. I now rebuild it in Angular with my new skills in web development.
-Special thank's to my friends who help me to improve the functionnalities & the design of wordGame.
+
+Special thanks to my friends who help me to improve the functionnalities & the design of wordGame.
