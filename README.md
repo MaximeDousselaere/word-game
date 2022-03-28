@@ -1,6 +1,9 @@
 # wordGame
 Web browser game. 
 
+# Version 
+wordGame is curently in development. 
+
 ## Rules : 
 Rules will be writen later.
 
