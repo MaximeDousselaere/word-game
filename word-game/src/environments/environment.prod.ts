@@ -11,4 +11,4 @@ export const environment = {
   production: true
 };
 
-// UWU
+// UWU t hide ptdr

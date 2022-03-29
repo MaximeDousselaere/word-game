@@ -39,6 +39,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/src/environments/**
 
 # System Files
 .DS_Store
@@ -49,5 +50,4 @@ Thumbs.db
 *-debug.log
 .runtimeconfig.json
 
-# env
-/src/environments/*
+
