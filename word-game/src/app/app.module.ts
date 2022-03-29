@@ -34,6 +34,7 @@ import { LeaderboardViewComponent } from './leaderboard-view/leaderboard-view.co
 import { MenuViewComponent } from './menu-view/menu-view.component';
 import { LogViewComponent } from './log-view/log-view.component';
 import { AuthGuard } from './service/auth.guard';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'game', component: GameViewComponent, canActivate : [AuthGuard] },
   { path: 'leaderboard', component: LeaderboardViewComponent, canActivate : [AuthGuard] },
   { path : '', component : LogViewComponent},
+  { path : 'forgot-password', component : ForgotPasswordComponent}
 ];
 
 @NgModule({
@@ -49,7 +51,8 @@ const routes: Routes = [
     GameViewComponent,
     LeaderboardViewComponent,
     MenuViewComponent,
-    LogViewComponent
+    LogViewComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

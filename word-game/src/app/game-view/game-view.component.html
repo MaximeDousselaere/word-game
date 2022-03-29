@@ -1,3 +1,17 @@
 <div class="main">
-    Game
+    
+    <!-- begin button -->
+    <button *ngIf="!isGameBegin" mat-raised-button color="primary" (click)="makeTheGameBegin()">Commencer une partie !</button>
+
+    <!-- div game -->
+    <div *ngIf="isGameBegin">
+        <button mat-raised-button color="primary" (click)="resetGame()">Reset</button>
+        Nombre de mots à écrire : {{ 10-numberOfWord}} 
+        <br>
+        <br>
+        <input type="text" readonly="readonly" #input/>
+        <br>
+        <br>
+        <input type="text" placeholder="ecrire ici" #output/>
+    </div>
 </div>

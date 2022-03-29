@@ -1,0 +1,1 @@
+export const words = ['mot1', 'mot2', 'mot3', 'mot4']
