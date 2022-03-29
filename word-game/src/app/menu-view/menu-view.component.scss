@@ -1,0 +1,16 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+a{
+  text-decoration: none;
+  color:#ffffff;
+}
+
+button.btnSettings{
+  transition:0.5s;
+}
+
+button.btnSettings:hover{
+  transform: rotate(90deg);
+}

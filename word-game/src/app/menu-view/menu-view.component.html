@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <a routerLink="/game"><span>wordGame</span></a>
+    <span class="spacer"></span>
+    <a routerLink="leaderboard"><span>Classement</span></a>
+    <span class="spacer"></span>
+    <div *ngIf="(afAuth.user | async)">
+        <div *ngIf="user$ | async as user">
+           {{ user.displayName }}
+           <button mat-icon-button class="btnSettings">
+                <mat-icon>settings</mat-icon>
+            </button>
+            <button mat-raised-button color="warn" (click)="logout()">Déconnexion</button>
+        </div>
+        
+    </div>
+</mat-toolbar>
+

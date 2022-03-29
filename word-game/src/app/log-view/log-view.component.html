@@ -1,0 +1,71 @@
+<table>
+    <tr>
+        <td>
+            <!-- CONNEXION -->
+            <mat-card id="right">
+                <h1>Connexion</h1>
+                <form [formGroup]="loginForm" (ngSubmit)="loginUser()" type="">
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input formControlName="emailLogin" type="email" matInput placeholder="Email">
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mot de passe</mat-label>
+                            <input autocomplete="off" formControlName="passwordLogin" type="password" matInput placeholder="Mot de passe">
+                        </mat-form-field>
+                        <br>
+                        <a routerLink="forgot-password"><span class="mdpOublieLeRelou">
+                            Mot de passe oublié
+                        </span></a>
+                    </p>
+                    <button mat-raised-button color="primary">Se connecter</button>
+                </form>
+            </mat-card>
+        </td>
+        <td>
+            <!-- INSCRIPTION -->
+            <mat-card id="left">
+                <h1>Inscription</h1>
+                <form [formGroup]="signupForm" (ngSubmit)="signup()">
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pseudo</mat-label>
+                            <input autocomplete="off" formControlName="displayName" type="text" matInput placeholder="Pseudo" maxlength="20"/>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input formControlName="email" type="email" matInput placeholder="Email"/>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mot de passe</mat-label>
+                            <input autocomplete="off" formControlName="password" type="password" matInput placeholder="Mot de passe"/>
+                        </mat-form-field>
+                    </p>
+                    <button mat-raised-button color="primary">S'inscrire</button>
+                </form>
+            </mat-card>
+        </td>
+    </tr>
+</table>
+
+<mat-card *ngIf="firebaseErrorMessageLogin != ''" class="warning">
+    <mat-card-title> <mat-icon>warning</mat-icon>Error</mat-card-title>
+    <mat-card-content>
+        <span class="error-style">{{ firebaseErrorMessageLogin }}</span>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="firebaseErrorMessage != ''" class="warning">
+    <mat-card-title> <mat-icon>warning</mat-icon>Error</mat-card-title>
+    <mat-card-content>
+        <span class="error-style">{{ firebaseErrorMessage }}</span>
+    </mat-card-content>
+</mat-card>
+

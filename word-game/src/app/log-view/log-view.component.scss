@@ -1,0 +1,72 @@
+table{
+    margin:auto;
+    border-spacing: 35px;
+    width:100%;
+    margin-top: 35vh; 
+    transform: translateY(-50%);
+}
+
+table td{
+    vertical-align: center;
+}
+
+mat-card{
+    width:40%;
+    display: block;
+    height: 40vh;
+    margin:auto;
+}
+
+form{
+    height: 40vh;
+}
+mat-form-field{
+    margin-left:10%;
+    width:80%;
+}
+
+button{
+    margin-left:30%;
+    width:40%;
+}
+
+.error-style{
+    color:red;
+    font-weight: bold;
+    margin-bottom:10px;
+}
+
+#left{
+    float:left;
+}
+
+#right{
+    float:right;
+}
+
+.mdpOublieLeRelou{
+    margin-left:10%;
+    color:#6483cc;
+}
+
+a{
+    text-decoration: none;
+}
+
+.error-style{
+    color:red;
+    font-weight: bold;
+    margin-bottom:10px;   
+}
+
+
+mat-card.warning{
+    position:absolute;
+    bottom:10px;
+    width:60%;
+    left: 20%;
+    display: block;
+    margin:auto;
+    height: auto;
+    margin-bottom:25px;
+}
