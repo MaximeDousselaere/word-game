@@ -1,0 +1,53 @@
+input{
+    font-size:30px;
+    
+}
+
+input.input_input{
+    text-align:center;
+}
+input.input_output{
+    text-align:left;
+    padding:5px;
+}
+
+div.beginGame{
+    text-align:center;
+}
+
+button.btn-start-game{
+    font-size:30px;
+    padding-left: 50px;
+    padding-right:50px;
+    padding-top:25px;
+    padding-bottom:25px;
+    margin-top: 30vh; /* poussé de la moitié de hauteur de viewport */
+    transform: translateY(-50%);
+}
+
+div.bodyGame{
+    margin-top:5vh;
+}
+
+div.div-input{
+    text-align:center;
+}
+button.btn-reset{
+    display: flex;
+    float:right;
+}
+    
+div.points{
+    text-align:center;
+    
+    
+}
+
+mat-chip-list.display{
+    position: absolute;
+    left: 40%;
+    right:40%;
+    width:20%;
+}
+
+

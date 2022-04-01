@@ -1,1 +1,1 @@
-export const words = ['mot1', 'mot2', 'mot3', 'mot4']
+export const words = ['uwu', 'iwi', 'awa', 'ewe', 'ywy', 'owo']
