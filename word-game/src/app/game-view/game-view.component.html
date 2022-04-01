@@ -2,7 +2,7 @@
     
     <!-- begin button -->
     <div *ngIf="!isGameBegin" class="beginGame">
-        <button mat-raised-button color="primary" (click)="makeTheGameBegin()" class="btn-start-game">Commencer une partie !</button>
+        <button mat-raised-button color="primary" (click)="makeTheGameBegin()" class="btn-start-game">Commencer une partie</button>
     </div>
     
 
@@ -15,12 +15,12 @@
             <input type="text" readonly="readonly" [value]="input" class="input_input"/>
             <br>
             <br>
-            <input type="text" autofocus placeholder="Ecrire ici..." (keydown.enter)="onKeyDownEnterInput($event)" [(ngModel)]="output" class="input_output"/>
+            <input type="text" autofocus cdkTrapFocus  placeholder="Ecrire ici..." (keydown.enter)="onKeyDownEnterInput($event)" [(ngModel)]="output" class="input_output" id="to_focus" onpaste="return false;" autocomplete="off"/>
             <br> <br>
             <div class="points">
                 <mat-chip-list class="display">
                     <mat-chip color="default" selected>Points &nbsp;&nbsp;<mat-chip [color]="colorOfPoints" selected>{{ points }}</mat-chip></mat-chip> 
-                    <mat-chip color="default" selected>Temps &nbsp;&nbsp;<mat-chip color="primary" selected> {{ timer/1000 | number : '1.3-3'  }} s </mat-chip></mat-chip> 
+                    <mat-chip color="default" selected>Temps &nbsp;&nbsp;<mat-chip color="primary" selected> {{ timer/1000 | number : '1.4-4'  }} s </mat-chip></mat-chip> 
                 </mat-chip-list>
             </div>
         </div>
@@ -28,16 +28,49 @@
         <br><br>
         <mat-card *ngIf="isGameSumarry">
             <mat-card-title>Résumé de la partie</mat-card-title>
-            <mat-card-subtitle>{{ timeStartGame | date : 'dd/MM/yyyy' }}</mat-card-subtitle>
+            <mat-card-subtitle>{{ timeEndGame | date : 'dd/MM/yyyy - HH:mm' }}</mat-card-subtitle>
             <mat-card-content>
                 <mat-chip color="default" selected>Points &nbsp;&nbsp;<mat-chip [color]="colorOfPoints" selected>{{ points }}</mat-chip></mat-chip>&nbsp;
-                <mat-chip color="default" selected>Temps &nbsp;&nbsp;<mat-chip color="primary" selected> {{ cumulTemps/1000 | number : '1.3-3'  }} s  ({{ cumulTemps | number : '1.3-3' }} ms)</mat-chip></mat-chip>&nbsp;
-                <mat-chip color="default" selected>Temps moyen &nbsp;&nbsp;<mat-chip color="primary" selected> {{ avgTime/1000 | number : '1.3-3' }} s </mat-chip></mat-chip> 
-
+                <mat-chip color="default" selected>Temps &nbsp;&nbsp;<mat-chip color="primary" selected> {{ cumulTemps/1000 | number : '1.4-4'  }} s  ({{ cumulTemps | number : '1.0-0':'fr-Fr' }} ms)</mat-chip></mat-chip>&nbsp;
+                <mat-chip color="default" selected>Temps moyen &nbsp;&nbsp;<mat-chip color="primary" selected> {{ avgTime/1000 | number : '1.4-4' }} s </mat-chip></mat-chip>&nbsp;
+                <mat-chip color="default" selected>Mots écrits &nbsp;&nbsp;<mat-chip color="primary" selected> {{ wordsHeWrote.length }}  </mat-chip></mat-chip>&nbsp;
                 <br> <br>
+                <h2>Résumé bref : </h2>
                 <mat-chip-list>
-                    <mat-chip *ngFor="let item of wordsHeWrote; let i = index;" [color]="isWellWritten[i] ? 'primary' : 'accent'" selected>{{ wordsHeWrote[i]+" : "+wordsToWrite[i]+" ("+timePerWords[i]+" ms)" }}</mat-chip>
+                    <mat-chip *ngFor="let item of wordsHeWrote; let i = index;" [color]="isWellWritten[i] ? 'primary' : 'accent'" selected>{{ wordsToWrite[i]+" : "+wordsHeWrote[i]+" ("+timePerWords[i]+" ms)" }}</mat-chip>
                 </mat-chip-list>
+                <br>
+                <h2>Résumé détaillé :</h2>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z10">
+                    <ng-container matColumnDef="#">
+                      <th mat-header-cell *matHeaderCellDef> No. </th>
+                      <td mat-cell *matCellDef="let element;let i=index;"> {{ i+1 }} </td>
+                      <td mat-footer-cell *matFooterCellDef> Total </td>
+                    </ng-container>
+                    <ng-container matColumnDef="word-to-write">
+                      <th mat-header-cell *matHeaderCellDef> Mot à écrire </th>
+                      <td mat-cell *matCellDef="let element"> {{element.motAEcrire}} </td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="word-written">
+                      <th mat-header-cell *matHeaderCellDef> Mot écrit </th>
+                      <td mat-cell *matCellDef="let element"> <span [ngClass]="{'red' : !element.cBienEcritOuPas}">{{element.motEcrit}}</span> </td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="time">
+                      <th mat-header-cell *matHeaderCellDef> Temps (ms) </th>
+                      <td mat-cell *matCellDef="let element"> {{element.tempsPourLeMot}} </td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="icon">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell *matCellDef="let element"> <mat-icon color="primary" *ngIf="element.cBienEcritOuPas">check</mat-icon>  <mat-icon color="warn" *ngIf="!element.cBienEcritOuPas">clear</mat-icon></td>
+                        <td mat-footer-cell *matFooterCellDef> {{ cumulTemps }} </td>
+                    </ng-container>
+        
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
             </mat-card-content>
         </mat-card>
     </div>

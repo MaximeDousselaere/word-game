@@ -19,6 +19,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatTableModule} from '@angular/material/table';
 
 // Firebase : 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -69,6 +70,7 @@ const routes: Routes = [
     MatInputModule,
     MatTooltipModule,
     MatChipsModule,
+    MatTableModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),

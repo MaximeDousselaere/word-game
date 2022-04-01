@@ -1,6 +1,15 @@
+import { registerLocaleData } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { words } from '../../assets/words';
+import fr from '@angular/common/locales/fr';
+
+interface Resume {
+  motAEcrire : string;
+  motEcrit : string;
+  cBienEcritOuPas : boolean;
+  tempsPourLeMot : number;
+}
 
 @Component({
   selector: 'app-game-view',
@@ -31,14 +40,15 @@ export class GameViewComponent implements OnInit {
   interval : any;
   avgTime : number = 0;
   cumulTemps : number = 0;
+  summary : Resume[] = [];
+  displayedColumns: string[] = ['#', 'word-to-write', 'word-written', 'time', 'icon'];
+  dataSource = this.summary;
 
   constructor(public afAuth : AngularFireAuth) {
-
+    registerLocaleData( fr );
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   /*
   / Procédure qui s'exécute qd on clique sur le btn de début de partie
@@ -50,7 +60,6 @@ export class GameViewComponent implements OnInit {
     this.timerIntermediaire  = new Date(); // set timer intermediaire
     // Ecriture du premier mot 
     this.changeWord();
-
     // Gestion du timer affiché
     this.interval = setInterval(() => {
       this.timer = new Date().getTime() - this.timeStartGame.getTime();
@@ -73,7 +82,7 @@ export class GameViewComponent implements OnInit {
     var output = event.target.value; 
     this.wordsHeWrote.push(output); // on stocke les mots que le boug écrit
     // Si ok : 
-    if(output === this.input){
+    if(output.trim().toLowerCase() === this.input.trim().toLowerCase()){
       this.points++; // +1 pt
       this.isWellWritten.push(true);
       this.colorOfPoints = "primary";
@@ -86,8 +95,8 @@ export class GameViewComponent implements OnInit {
     this.timerIntermediaire2 = new Date();
     this.timePerWords.push(this.timerIntermediaire2.getTime() - this.timerIntermediaire.getTime())
     this.timerIntermediaire = new Date();
+    this.updateSummary();
     this.output = "";// Supprimer ce que le boug a écrit 
-
     if(this.points==10){ // partie terminée
       clearInterval(this.interval); // on clear le timer
       this.input = "Game over";
@@ -97,11 +106,16 @@ export class GameViewComponent implements OnInit {
       this.timeGame = this.timeEndGame.getTime() - this.timeStartGame.getTime();
       this.avgTime = this.calculAvgTime();
       this.cumulTemps =  this.calculCumul();
+      this.dataSource = this.summary; //update le tableau de résumé
+
       // On envoi les données vers firebase : 
       // ...
     }
   }
   
+  /*
+  / Fonction qui calcule le temps moyen pour un mot 
+  */
   calculAvgTime() : number{
     let cumul = 0;
     for(let elem of this.timePerWords){
@@ -110,6 +124,9 @@ export class GameViewComponent implements OnInit {
     return cumul/this.timePerWords.length;
   }
 
+  /*
+  / Fonction qui calcule le temps total d'une partie
+  */
   calculCumul() : number {
     let cumul = 0;
     for(let elem of this.timePerWords){
@@ -117,6 +134,19 @@ export class GameViewComponent implements OnInit {
     }
     return cumul;
   }
+
+  /*
+  / Procédure qui met à jour le tableau résumé
+  */
+  updateSummary(){
+    this.summary.push({ // on écrit le résumé :
+      motAEcrire : this.wordsToWrite.slice(-1)[0],
+      motEcrit : this.wordsHeWrote.slice(-1)[0],
+      cBienEcritOuPas : this.isWellWritten.slice(-1)[0],
+      tempsPourLeMot : this.timePerWords.slice(-1)[0]
+    }) 
+  }
+
 
   resetGame(){
     this.wordsToWrite = [];
@@ -138,12 +168,18 @@ export class GameViewComponent implements OnInit {
     clearInterval(this.interval); // on clear le timer
     this.avgTime= 0;
     this.cumulTemps = 0;
+    this.summary = [];
   }
 
   ngOnDestroy(){
     this.resetGame();
   }
 
-
+  /*
+  / Sorry for this guys, i do not find another solution UwU
+  */
+  ngAfterViewChecked(): void {
+    document.getElementById("to_focus")?.focus();
+  }
 
 }

@@ -32,6 +32,7 @@ export class LogViewComponent implements OnInit {
       'emailLogin' : new FormControl('', [Validators.required, Validators.email]),
       'passwordLogin' : new FormControl('', Validators.required)
     });
+    this.alerteGenerale();
   }
 
   signup()  {
@@ -65,5 +66,14 @@ export class LogViewComponent implements OnInit {
         }
     });
 }
+
+  alerteGenerale(){
+    console.log('%cStop!', 'color: red; font-size: 30px; font-weight: bold;');
+    console.log('%cIf someone told you to go there to copy-paste code, don\'t do it ! This is probably scam.', 'color: purple; font-size: 20px');
+    console.log('%cAll the wordGame team wish you good times here !', 'color: green; font-size: 20px');   
+    console.log('%cStop!', 'color: red; font-size: 30px; font-weight: bold;');
+    console.log('%cSi quelqu\'un vous demande de copier-coller des éléments ici, ne le faites pas ! C\'est surement un pirate.', 'color: purple; font-size: 20px');
+    console.log('%cToute l\'équipe wordGame vous souhaite du bon temps ici !', 'color: green; font-size: 20px');
+  }
 
 }

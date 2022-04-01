@@ -2,7 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 
-html, body { height: 100%; margin:0px; padding:0px;}
+html, body { height: 100%; margin:0px; padding:0px; scroll-behavior: smooth;}
 body { 
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
