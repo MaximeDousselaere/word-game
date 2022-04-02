@@ -28,7 +28,7 @@
         <br><br>
         <mat-card *ngIf="isGameSumarry">
             <mat-card-title>Résumé de la partie</mat-card-title>
-            <mat-card-subtitle>{{ timeEndGame | date : 'dd/MM/yyyy - HH:mm' }}</mat-card-subtitle>
+            <mat-card-subtitle>{{userName}} | {{ timeEndGame | date : 'dd/MM/yyyy - HH:mm' }}</mat-card-subtitle>
             <mat-card-content>
                 <mat-chip color="default" selected>Points &nbsp;&nbsp;<mat-chip [color]="colorOfPoints" selected>{{ points }}</mat-chip></mat-chip>&nbsp;
                 <mat-chip color="default" selected>Temps &nbsp;&nbsp;<mat-chip color="primary" selected> {{ cumulTemps/1000 | number : '1.4-4'  }} s  ({{ cumulTemps | number : '1.0-0':'fr-Fr' }} ms)</mat-chip></mat-chip>&nbsp;

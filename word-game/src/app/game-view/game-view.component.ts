@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { words } from '../../assets/words';
 import fr from '@angular/common/locales/fr';
+import { FireService } from '../service/fire.service';
 
 interface Resume {
   motAEcrire : string;
@@ -43,9 +44,16 @@ export class GameViewComponent implements OnInit {
   summary : Resume[] = [];
   displayedColumns: string[] = ['#', 'word-to-write', 'word-written', 'time', 'icon'];
   dataSource = this.summary;
+  userName : string | null= "";
 
-  constructor(public afAuth : AngularFireAuth) {
+  constructor(public afAuth : AngularFireAuth, private fireService : FireService) {
     registerLocaleData( fr );
+    this.afAuth.currentUser.then( data  => {
+      if(data!=null){
+        this.userName = data.displayName;
+      }
+    });
+    
   }
 
   ngOnInit(): void {}
@@ -91,7 +99,6 @@ export class GameViewComponent implements OnInit {
       this.isWellWritten.push(false);
       this.colorOfPoints = "accent";
     }
-    this.changeWord(); // change de mot
     this.timerIntermediaire2 = new Date();
     this.timePerWords.push(this.timerIntermediaire2.getTime() - this.timerIntermediaire.getTime())
     this.timerIntermediaire = new Date();
@@ -107,9 +114,17 @@ export class GameViewComponent implements OnInit {
       this.avgTime = this.calculAvgTime();
       this.cumulTemps =  this.calculCumul();
       this.dataSource = this.summary; //update le tableau de résumé
-
       // On envoi les données vers firebase : 
-      // ...
+      if(this.cumulTemps > 60000) {// si la game a duré plus d'une minute : 
+        // snackbar on a pas envoyé psque t trop long mdr
+      }else{
+        this.fireService.addFirestoreGame(this.userName, this.wordsToWrite, this.wordsHeWrote, this.cumulTemps, this.timeEndGame);
+        // snackbar : données sauvegardées
+      }
+      
+    }
+    else{
+      this.changeWord(); // change de mot
     }
   }
   
