@@ -45,12 +45,14 @@ export class GameViewComponent implements OnInit {
   displayedColumns: string[] = ['#', 'word-to-write', 'word-written', 'time', 'icon'];
   dataSource = this.summary;
   userName : string | null= "";
+  userUid : string | null = "";
 
   constructor(public afAuth : AngularFireAuth, private fireService : FireService) {
     registerLocaleData( fr );
     this.afAuth.currentUser.then( data  => {
       if(data!=null){
         this.userName = data.displayName;
+        this.userUid = data.uid;
       }
     });
     
@@ -117,8 +119,9 @@ export class GameViewComponent implements OnInit {
       // On envoi les données vers firebase : 
       if(this.cumulTemps > 60000) {// si la game a duré plus d'une minute : 
         // snackbar on a pas envoyé psque t trop long mdr
-      }else{
-        this.fireService.addFirestoreGame(this.userName, this.wordsToWrite, this.wordsHeWrote, this.cumulTemps, this.timeEndGame);
+      }else{ // si la game a duré moins d'une minute, on la sauvegarde
+        // Sauvegarde de la partie sur firestore
+        this.fireService.addFirestoreGame(this.userName, this.userUid, this.wordsToWrite, this.wordsHeWrote, this.cumulTemps, this.timeEndGame, this.isWellWritten);
         // snackbar : données sauvegardées
       }
       

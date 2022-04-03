@@ -36,11 +36,7 @@ export class AuthService {
                 pseudo : user.displayName,
                 bio : '',
                 avatar : '',
-                numberOfGame : 0,
-                averageTime : 0.00,
-                bestTime : 0.00,
                 creationAccount : result.user.metadata.creationTime,
-                lastLog : result.user.metadata.lastSignInTime
               });
               // Ajout du pseudo
               result.user.updateProfile({

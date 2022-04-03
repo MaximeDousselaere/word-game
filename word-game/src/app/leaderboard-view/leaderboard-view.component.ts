@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardViewComponent implements OnInit {
 
+  classement : any[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
